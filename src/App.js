@@ -1,4 +1,3 @@
-import axios from 'axios';
 import './App.css';
 import naked from "./assets/naked.png"
 import sleepy from "./assets/sleepy.png"
@@ -12,6 +11,7 @@ import cloack from "./assets/cloack.png"
 import jacket from "./assets/jacket.png"
 import { useEffect, useState } from 'react';
 import data from "./data.json"
+import Header from './Header/Header';
 
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
   function getData (response) {
     console.log(response);
     let currentTemp = response.current.temperature
-    if ( response.current.is_day == false) {
+    if ( response.current.is_day === false) {
       setKeanu(sleepy)
     }
     else if (response.current.weather_descriptions[0] === "Rain") {
@@ -57,6 +57,7 @@ function App() {
   }, [])
   return (
     <div className="App">
+      <Header/>
       <img src={keanu} alt="keanu" />
     </div>
   );
