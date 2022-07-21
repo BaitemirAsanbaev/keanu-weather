@@ -4,7 +4,7 @@ const Header = () => {
   return (<header className={classes.Header}>
     <div>
       <span>Keanu Weather</span>
-      <span>Credits: <a href="https://baitemir.gatsbyjs.io" target="_blank">Baitemir</a></span>
+      <span>Credits: <a href="https://baitemir.gatsbyjs.io" target="_blank" rel="noreferrer">Baitemir</a></span>
     </div>
   </header>);
 }
