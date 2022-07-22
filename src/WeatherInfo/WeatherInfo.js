@@ -1,8 +1,7 @@
-import { useState } from "react";
 import Input from "./Input";
 import classes from "./WeatherInfo.module.css"
 const WeatherInfo = ({ data, getData }) => {
-  
+
   return (<div className={classes.WeatherInfo}>
     <Input getData={getData} />
     <div style={data.city !== undefined ? {color: "#fff"}: {color: '#343434'}}>

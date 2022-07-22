@@ -1,6 +1,5 @@
 import './App.css';
 import naked from "./assets/naked.png"
-import sleepy from "./assets/sleepy.png"
 import tshirt from "./assets/t-shirt.png"
 import summer from "./assets/summer.png"
 import casual from "./assets/casual.png"
