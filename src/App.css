@@ -16,3 +16,11 @@ body{
 .main img{
   width: 200px;
 }
+@media (max-width:550px) {
+  .main{
+    flex-direction: column; 
+  }
+  .main img{
+    margin: 40px 0;
+  }
+}
