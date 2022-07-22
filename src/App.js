@@ -9,56 +9,82 @@ import hoody from "./assets/hoody.png"
 import coat from "./assets/coat.png"
 import cloack from "./assets/cloack.png"
 import jacket from "./assets/jacket.png"
-import { useEffect, useState } from 'react';
-import data from "./data.json"
+import { useState } from 'react';
 import Header from './Header/Header';
+import WeatherInfo from './WeatherInfo/WeatherInfo';
+import axios from 'axios';
 
 
 function App() {
 
   const [keanu, setKeanu] = useState(casual)
-  function getData (response) {
-    console.log(response);
-    let currentTemp = response.current.temperature
-    if ( response.current.is_day === false) {
-      setKeanu(sleepy)
+  const [currentData, setCurrentData] = useState({})
+
+  function getData(city) {
+    try {
+      axios({
+        method: 'get',
+        url: `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=731ebe35142a1bfcacb3789bb14c5069&`,
+        responseType: 'stream'
+      })
+        .then(function (response) {
+          let celsium = Math.round(response.data.main.temp - 273.15)
+          console.log(response);
+          let newData = {
+            city: response.data.name,
+            temp: celsium,
+            desc: response.data.weather[0].main,
+            cloud: response.data.clouds.all,
+            humid: response.data.main.humidity,
+            press: response.data.main.pressure,
+            w_spd: response.data.wind.speed
+          }
+          setCurrentData(newData)
+          let currentTemp = celsium
+          if (response.data.weather[0].main === "Rain") {
+            setKeanu(coat)
+          }
+          else if (currentTemp >= 30) {
+            setKeanu(naked)
+          }
+          else if (currentTemp >= 25) {
+            setKeanu(tshirt)
+          }
+          else if (currentTemp >= 20) {
+            setKeanu(summer)
+          }
+          else if (currentTemp >= 15) {
+            setKeanu(sport)
+          }
+          else if (currentTemp >= 10) {
+            setKeanu(hoody)
+          }
+          else if (currentTemp > 0) {
+            setKeanu(casual)
+          }
+          else if (currentTemp <= -5) {
+            setKeanu(jacket)
+          }
+          else if (currentTemp <= 0) {
+            setKeanu(cloack)
+          }
+
+        });
     }
-    else if (response.current.weather_descriptions[0] === "Rain") {
-      setKeanu(coat)
+    catch (e) {
+      alert(e);
     }
-    else if (currentTemp >= 30) {
-      setKeanu(naked)
-    }
-    else if (currentTemp >= 25) {
-      setKeanu(tshirt)
-    }
-    else if (currentTemp >= 20) {
-      setKeanu(summer)
-    }
-    else if (currentTemp >= 15) {
-      setKeanu(sport)
-    }
-    else if (currentTemp >= 10) {
-      setKeanu(hoody)
-    }
-    else if (currentTemp > 0) {
-      setKeanu(casual)
-    }
-    else if (currentTemp <= 0) {
-      setKeanu(cloack)
-    }
-    else if (currentTemp <= -5) {
-      setKeanu(jacket)
-    }
-    console.log(response);
+
+
   }
-  useEffect(()=>{
-    getData(data)
-  }, [])
+
   return (
     <div className="App">
-      <Header/>
-      <img src={keanu} alt="keanu" />
+      <Header />
+      <div className='main'>
+        <WeatherInfo data={currentData} getData={getData} />
+        <img src={keanu} alt="keanu" />
+      </div>
     </div>
   );
 }
