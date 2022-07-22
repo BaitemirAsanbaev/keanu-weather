@@ -1,0 +1,25 @@
+.Input{
+  display: flex;
+  flex-wrap: wrap;
+}
+.Input>*{
+  margin: 0 5px
+}
+.Input label{
+  font-size: 26px;
+}
+.Input input{
+  font-size: 20px;
+}
+.Input button{
+  background-color: #59A5FF;
+  outline: none;
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color .3s ease-in;
+}
+.Input button:hover{
+  background-color: #297ade
+}
